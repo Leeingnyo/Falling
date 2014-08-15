@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: c940dd2c3dc2145189a63796700cb643
+guid: f3d3bcf0ba4144bf4b0d6f204037cfd9
 TextureImporter:
   fileIDToRecycleName:
-    21300000: rightJump
+    21300000: leftJump
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,7 +35,7 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
+  alignment: 7
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
