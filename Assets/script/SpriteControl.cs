@@ -32,7 +32,11 @@ public class SpriteControl : MonoBehaviour {
         groundCheck = transform.Find("GroundCheck");
         cam = Camera.main.transform;
         Camera.main.orthographicSize = 4;
+<<<<<<< HEAD
         max_h = -50;
+=======
+        max_h = 0;
+>>>>>>> edbf6dc20e0358e5e040ff7651eed072099bb3b5
 	}
 
     void Start() {
@@ -125,15 +129,54 @@ public class SpriteControl : MonoBehaviour {
         }
         if (time_wing < 0.0f) {
             rigidbody2D.gravityScale = 1;
+<<<<<<< HEAD
             collider2D.isTrigger = false;
 
             foreach (Collider2D colls in Colliders) {
                 if (is_grounded == true)
                     colls.enabled = true;
+=======
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D coll){
+        if (coll.gameObject.name == "wood") {
+            if (is_grounded)
+            {
+                max_h = coll.transform.position.y;
             }
         }
     }
 
+    public void CheckItem() {
+        if (is_crush) { 
+            time_crush -= Time.deltaTime;
+            if (time_crush < 0.0f) {
+                is_crush = false;
+            }
+            //Crush()
+        }
+        if (is_jumpup) {
+            time_jumpup -= Time.deltaTime;
+            if (time_jumpup < 0.0f)
+            {
+                is_jumpup = false;
+            }
+            jumpForce = 500.0f;
+        }
+        else {
+            jumpForce = 400.0f;
+        }
+        if (is_wing) { 
+            time_wing -= Time.deltaTime;
+            if (time_wing < 0.0f) {
+                is_wing = false;
+>>>>>>> edbf6dc20e0358e5e040ff7651eed072099bb3b5
+            }
+        }
+    }
+
+<<<<<<< HEAD
     void OnCollisionStay2D(Collision2D coll){
         if (coll.gameObject.tag == "tiles") {
             if (is_grounded)
@@ -215,6 +258,38 @@ public class SpriteControl : MonoBehaviour {
                     //부숴지는 이펙트 설정 (?)
                     Destroy(coll.gameObject, 1); //진짜로 부숨
                 }
+=======
+    void OnTriggerEnter2D(Collider2D item) {
+        if (item.tag == "Crush") {
+            is_crush = true;
+            time_crush = 5.0f;
+            Destroy(item.gameObject);
+        } else
+        if (item.tag == "Jump_up") {
+            is_jumpup = true;
+            time_jumpup = 5.0f;
+            Destroy(item.gameObject);
+        } else
+        if (item.tag == "Wing") {
+            is_wing = true;
+            time_wing = 5.0f;
+
+            Destroy(item.gameObject);
+        } else
+        if (item.tag == "Sheild") {
+            num_sheild++;
+            Destroy(item.gameObject);
+        }
+
+        if (is_falling == true && item.tag == "tiles") {
+            if (num_sheild > 0) {
+                num_sheild--;
+            }
+            else {
+                rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
+                //부숴지는 이펙트 설정 (?)
+                Destroy(item.gameObject, 1); //진짜로 부숨
+>>>>>>> edbf6dc20e0358e5e040ff7651eed072099bb3b5
             }
         }
     }
