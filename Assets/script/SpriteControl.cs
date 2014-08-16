@@ -5,10 +5,10 @@ public class SpriteControl : MonoBehaviour {
 
 	Animator anim;
     public int speed = 2;
-    public float jumpForce = 500.0f;
+    public float jumpForce = 400.0f;
 
-    bool jump = false;
-    bool grounded = false;
+    bool is_jumping = false;
+    bool is_grounded = false;
 
     Transform groundCheck;
 
@@ -24,7 +24,7 @@ public class SpriteControl : MonoBehaviour {
         Vector3 moveDir = Vector3.zero;
 
         //check the grounded
-        grounded = Physics2D.Linecast(transform.position, groundCheck.position);
+        is_grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("ground"));
 
         //input the keys
 		int inputHor;
@@ -57,21 +57,21 @@ public class SpriteControl : MonoBehaviour {
         }
 
         if (inputJump != 0)
-            if (jump == false && grounded == true) {
+            if (is_jumping == false && is_grounded == true) {
                 anim.SetBool("inAir", true);
-                jump = true;
+                is_jumping = true;
             }
 
         //move
         transform.position += (moveDir * Time.deltaTime * speed);
+
 	}
 
     void FixedUpdate() {
-        if (jump) {
+        if (is_jumping) {
             rigidbody2D.AddForce(new Vector2(0f, jumpForce));
         }
-        jump = false;
-        grounded = false;
+        is_jumping = false;
     }
 
     void OnCollisionStay2D(Collision2D coll) {
