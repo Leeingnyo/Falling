@@ -23,9 +23,11 @@ public class SpriteControl : MonoBehaviour
     bool is_wing;
     private float time_jumpup;
     bool is_jumpup;
-    private int num_sheild;
+    public static int num_sheild;
 
     private float max_h;
+
+    private bool Gameover;
 
     Transform groundCheck;
     private Transform cam;
@@ -108,7 +110,7 @@ public class SpriteControl : MonoBehaviour
 
             is_falling = true;
             anim.SetTrigger("fall");
-            this.rigidbody2D.fixedAngle = false;
+            //this.rigidbody2D.fixedAngle = false;
             speed = 5;
         }
         //check item
@@ -124,7 +126,8 @@ public class SpriteControl : MonoBehaviour
 		}
 
         //cam move
-        cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
+        if (Gameover == false)
+            cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
     }
 
     void FixedUpdate()
@@ -137,6 +140,7 @@ public class SpriteControl : MonoBehaviour
                 if (current_tile != null)
                 {
                     Destroy(current_tile.gameObject);
+                    SoundEffectsHelper.Instance.MakeCrashSound();
                     current_tile = null;
                 }
             }
@@ -178,7 +182,11 @@ public class SpriteControl : MonoBehaviour
         }
         if((coll.gameObject.tag == "main_ground") && is_falling){
             SendMessage("kill", 3);
-
+            if (Gameover == false)
+            {
+                SoundEffectsHelper.Instance.MakeSplatSound();
+                Gameover = true;
+            }
             /////////////////////GAME OVER EFFECT HERE//////////////////////////
         }
     }
@@ -261,12 +269,17 @@ public class SpriteControl : MonoBehaviour
                     num_sheild--;
                 }
                 else {
-                    rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
-                    //부숴지는 이펙트 설정 (?)
-                    Destroy(coll.gameObject, 1); //진짜로 부숨
+                    rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도를 늦춤
+                    Destroy(coll.gameObject);
                     SoundEffectsHelper.Instance.MakeCrashSound();
                 }
             }
         }
+    }
+
+    public static int GetNumSheild()
+    {
+        int num = num_sheild;
+        return num;
     }
 }
