@@ -5,8 +5,10 @@ public class SpriteControl : MonoBehaviour
 {
 
     Animator anim;
-    public int speed = 2000;
-	public int fallSpd = 3000;
+    public int originalSpd = 2000;
+	public int fallSpd = 5000;
+	public int flySpd = 5000;
+	private int speed = 2000;
 	private Vector3 currentSpeed;
     public float bareFoot = 3f;
 	public float rocketBoots = 5f;
@@ -186,7 +188,7 @@ public class SpriteControl : MonoBehaviour
                 }
                 anim.SetBool("flying", false);
                 is_wing = false;
-                speed = 2;
+                speed = originalSpd;
             }
         }
         
@@ -252,7 +254,7 @@ public class SpriteControl : MonoBehaviour
         if (is_wing)
         {
             anim.SetBool("flying", true);
-            speed = 5;
+            speed = flySpd;
         }
     }
 
