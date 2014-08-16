@@ -178,7 +178,8 @@ public class SpriteControl : MonoBehaviour
                 is_jumpup = true;
                 time_jumpup = 5.0f;
                 Destroy(item.gameObject);
-            }
+			ParticleManager.manager.setEffect(5,transform.position);
+				}
             else
                 if (item.tag == "Wing")
                 {
@@ -192,7 +193,8 @@ public class SpriteControl : MonoBehaviour
                     {
                         num_sheild++;
                         Destroy(item.gameObject);
-                    }
+			ParticleManager.manager.setEffect(4,transform.position);
+				}
 
         if (is_falling == true && item.tag == "tiles")
         {
