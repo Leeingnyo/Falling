@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: b0cf4255cc21b4efd84b537c9f8e8f8b
+guid: 2c161cb920e2e4641a53b94b56a81c26
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Icon
+    21300000: shieldEffect
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
