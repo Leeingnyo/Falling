@@ -72,6 +72,7 @@ public class SpriteControl : MonoBehaviour
         if (is_grounded == true)
         {
            // Debug.Log("IS GROUND");
+            max_h = groundCheck.position.y;
             anim.SetBool("inAir", false);
         }
         else
@@ -99,6 +100,7 @@ public class SpriteControl : MonoBehaviour
 
         //cam move
         cam.transform.position = new Vector3(0, transform.position.y, -1);
+       
     }
 
     void FixedUpdate()
@@ -108,6 +110,11 @@ public class SpriteControl : MonoBehaviour
             rigidbody2D.AddForce(new Vector2(0f, jumpForce));
         }
         is_jumping = false;
+        if (is_falling)
+        {
+            rigidbody2D.gravityScale = 0;
+            rigidbody2D.velocity = new Vector3(0, -3, 0);
+        }
 
     }
 
