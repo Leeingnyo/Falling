@@ -7,29 +7,32 @@ using UnityEngine;
 public class ScrollingScript : MonoBehaviour
 {
     public GameObject last_pref;
-    private GameObject last_bg;
+    private GameObject bg1;
+	private GameObject bg2;
     private Transform child;
     private Vector3 last_bg_pos;
     private float bg_height;
 
+	private GameObject newParent;
+	private GameObject cam;
+
     void Start()
     {
-        GameObject newParent = GameObject.Find("1-Background");
+		cam = Camera.main.gameObject;
+        newParent = GameObject.Find("1-Background");
 
         last_bg_pos = new Vector3(0, 7.2f, 10);
-        last_bg = Instantiate(last_pref, last_bg_pos, Quaternion.identity) as GameObject;
-        last_bg.transform.parent = newParent.transform;
-        bg_height = last_bg.renderer.bounds.max.y - last_bg.renderer.bounds.min.y;
+        bg1 = Instantiate(last_pref, last_bg_pos, Quaternion.identity) as GameObject;
+		bg2 = Instantiate(last_pref, last_bg_pos+Vector3.up*7.2f, Quaternion.identity) as GameObject;
+	
+		bg1.transform.parent = newParent.transform;
+		bg2.transform.parent = newParent.transform;
     }
     
     void Update()
     {
-        GameObject newParent = GameObject.Find("1-Background");
-        last_bg_pos = last_bg.transform.position;
-        {
-            Vector3 newPos = new Vector3(last_bg_pos.x, last_bg_pos.y + bg_height, 10);
-            last_bg = Instantiate(last_pref, newPos, Quaternion.identity) as GameObject;
-            last_bg.transform.parent = newParent.transform;
-        }
+		float campos = cam.transform.position.y - 3.6f;
+		bg1.transform.position = new Vector3(0,Mathf.Floor(campos/7.2f)*7.2f,10);
+		bg2.transform.position = new Vector3(0,Mathf.Ceil(campos/7.2f)*7.2f,10);
     }
 }

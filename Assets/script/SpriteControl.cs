@@ -6,7 +6,12 @@ public class SpriteControl : MonoBehaviour
 
     Animator anim;
     public int speed = 2;
-    public float jumpForce = 400.0f;
+	private Vector3 currentSpeed;
+    public float bareFoot = 3f;
+	public float rocketBoots = 5f;
+	private float jumpForce;
+
+	public float slip = 500f;
 
     bool is_jumping = false;
     bool is_grounded = false;
@@ -97,7 +102,13 @@ public class SpriteControl : MonoBehaviour
         CheckItem();
 
         //move
-        transform.position += (moveDir * Time.deltaTime * speed);
+		if(moveDir!=Vector3.zero){
+			currentSpeed = speed * moveDir;
+	        transform.position += (Time.deltaTime * currentSpeed);
+		}else{
+			currentSpeed *= 1-(slip * Time.deltaTime);
+			transform.position += (Time.deltaTime * currentSpeed);
+		}
 
         //cam move
         cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
@@ -107,7 +118,7 @@ public class SpriteControl : MonoBehaviour
     {
         if (is_jumping)
         {
-            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+            rigidbody2D.velocity = (new Vector2(0f, jumpForce));
             if (is_crush)
             {
                 if (current_tile != null)
@@ -168,11 +179,11 @@ public class SpriteControl : MonoBehaviour
             {
                 is_jumpup = false;
             }
-            jumpForce = 500.0f;
+            jumpForce = rocketBoots;
         }
         else
         {
-            jumpForce = 400.0f;
+            jumpForce = bareFoot;
         }
         if (is_wing)
         {

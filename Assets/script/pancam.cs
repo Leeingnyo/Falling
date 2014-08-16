@@ -18,7 +18,7 @@ public class pancam : MonoBehaviour
         else
         {
             playerVelo = Camera.main.velocity.y;
-            Debug.Log(playerVelo);
+//            Debug.Log(playerVelo);
             gui.guiText.text = "높이: " + ((int)playerHeight).ToString() + "m\n속도: " + ((int)playerVelo).ToString()+"m/s";
             transform.position = new Vector3(transform.position.x / 2, transform.position.y, -10);
         }
