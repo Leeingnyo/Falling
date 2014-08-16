@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: b0cf4255cc21b4efd84b537c9f8e8f8b
+guid: ec0c0ff83d8a3446c98786f529300d6c
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Icon
+    21300000: bloodWall
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
