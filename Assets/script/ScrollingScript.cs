@@ -16,7 +16,7 @@ public class ScrollingScript : MonoBehaviour
     public GameObject woodPrefab;
     public float numWoods = 10;
 
-    private Vector3 recent
+    private Vector3 recent;
 
     void Start()
     {
@@ -73,10 +73,6 @@ public class ScrollingScript : MonoBehaviour
                     backgroundPart.Remove(firstChild);
                     backgroundPart.Add(firstChild);                    
                 }
-            }
-            if (woodPosList < Camera.main.transform.position.y)
-            {
-
             }
         }
     }
