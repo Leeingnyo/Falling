@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/SpriteControl.cs">
     <Files>
-      <File FileName="Assets/script/DeadSceneSelect.cs" Line="23" Column="1" />
-      <File FileName="Assets/script/SpriteControl.cs" Line="196" Column="41" />
+      <File FileName="Assets/script/DeadSceneSelect.cs" Line="12" Column="39" />
+      <File FileName="Assets/script/SpriteControl.cs" Line="91" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -5,7 +5,8 @@ public class SpriteControl : MonoBehaviour
 {
 
     Animator anim;
-    public int speed = 2;
+    public int speed = 2000;
+	public int fallSpd = 3000;
 	private Vector3 currentSpeed;
     public float bareFoot = 3f;
 	public float rocketBoots = 5f;
@@ -115,7 +116,7 @@ public class SpriteControl : MonoBehaviour
             }
 
             anim.SetTrigger("fall");
-            speed = 5;
+			speed = fallSpd;
             fallingnum++;
 
             gameObject.GetComponent<Collider2D>().enabled = false;
