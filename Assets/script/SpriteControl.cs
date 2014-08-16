@@ -204,11 +204,13 @@ public class SpriteControl : MonoBehaviour
                 is_crush = true;
                 time_crush = 5.0f;
                 Destroy(coll.gameObject);
+                SoundEffectsHelper.Instance.MakeItemGetSound();
                 break;
             case "Jump_up":
                 is_jumpup = true;
                 time_jumpup = 5.0f;
                 Destroy(coll.gameObject);
+                SoundEffectsHelper.Instance.MakeItemGetSound();
                 break;
             case "Wing":
                 is_wing = true;
@@ -219,10 +221,12 @@ public class SpriteControl : MonoBehaviour
                 }
 
                 Destroy(coll.gameObject);
+                SoundEffectsHelper.Instance.MakeItemGetSound();
                 break;
             case "Sheild":
                 num_sheild++;
                 Destroy(coll.gameObject);
+                SoundEffectsHelper.Instance.MakeItemGetSound();
                 break;
         }
 
@@ -235,6 +239,7 @@ public class SpriteControl : MonoBehaviour
                     rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
                     //부숴지는 이펙트 설정 (?)
                     Destroy(coll.gameObject, 1); //진짜로 부숨
+                    SoundEffectsHelper.Instance.MakeCrashSound();
                 }
             }
         }
