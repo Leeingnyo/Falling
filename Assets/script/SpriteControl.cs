@@ -13,8 +13,14 @@ public class SpriteControl : MonoBehaviour
 
 	public float slip = 500f;
 
+    public float initFallSpeed;
+    private float FallSpeed;
+    public float woodSlower;
+    bool is_gameover;
+
     bool is_jumping = false;
     bool is_grounded = false;
+
     bool is_falling = false;
 
     private float time_crush;
@@ -39,6 +45,8 @@ public class SpriteControl : MonoBehaviour
         groundCheck = transform.Find("GroundCheck");
         cam = Camera.main.transform;
         max_h = 0;
+        FallSpeed = initFallSpeed;
+        is_gameover = false;
     }
     void Start() {
         PlayerColliders = gameObject.GetComponents<Collider2D>();
@@ -108,7 +116,7 @@ public class SpriteControl : MonoBehaviour
 
             is_falling = true;
             anim.SetTrigger("fall");
-            this.rigidbody2D.fixedAngle = false;
+            //this.rigidbody2D.fixedAngle = false;
             speed = 5;
         }
         //check item
@@ -122,7 +130,7 @@ public class SpriteControl : MonoBehaviour
 			currentSpeed *= 1-(slip * Time.deltaTime);
 			transform.position += (Time.deltaTime * currentSpeed);
 		}
-
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
         //cam move
         cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
     }
@@ -145,7 +153,8 @@ public class SpriteControl : MonoBehaviour
 
 		if(is_falling){
 			rigidbody2D.gravityScale = 0;
-			rigidbody2D.velocity = new Vector2(0, -3);
+            FallSpeed += Time.deltaTime;
+            rigidbody2D.velocity = new Vector2(0, - FallSpeed);
 		}
         if (is_wing)
         {
@@ -177,8 +186,21 @@ public class SpriteControl : MonoBehaviour
             }
         }
         if((coll.gameObject.tag == "main_ground") && is_falling){
-            SendMessage("kill", 3);
-
+            if (!is_gameover)
+            {
+                is_gameover = true;
+                SoundEffectsHelper.Instance.MakeSplatSound();
+                if (FallSpeed < 4)
+                    SendMessage("kill", 0);
+                else if (FallSpeed < 6)
+                    SendMessage("kill", 1);
+                else if (FallSpeed < 8)
+                    SendMessage("kill", 2);
+                else if (FallSpeed < 10)
+                    SendMessage("kill", 3);
+                else
+                    SendMessage("kill", 4);
+            }
             /////////////////////GAME OVER EFFECT HERE//////////////////////////
         }
     }
@@ -265,6 +287,9 @@ public class SpriteControl : MonoBehaviour
                     //부숴지는 이펙트 설정 (?)
                     Destroy(coll.gameObject, 1); //진짜로 부숨
                     SoundEffectsHelper.Instance.MakeCrashSound();
+                    FallSpeed -= woodSlower;
+                    if (FallSpeed < initFallSpeed)
+                        FallSpeed = initFallSpeed;
                 }
             }
         }
