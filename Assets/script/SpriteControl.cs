@@ -32,7 +32,6 @@ public class SpriteControl : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         groundCheck = transform.Find("GroundCheck");
         cam = Camera.main.transform;
-        Camera.main.orthographicSize = 4;
         max_h = 0;
     }
     void Start() {
@@ -101,7 +100,7 @@ public class SpriteControl : MonoBehaviour
         transform.position += (moveDir * Time.deltaTime * speed);
 
         //cam move
-        cam.transform.position = new Vector3(0, transform.position.y, -1);
+        cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
     }
 
     void FixedUpdate()
