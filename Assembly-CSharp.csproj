@@ -54,6 +54,7 @@
      <Compile Include="Assets\script\WoodSpawner.cs" />
      <Compile Include="Assets\script\iTween.cs" />
      <Compile Include="Assets\script\intro.cs" />
+     <Compile Include="Assets\script\item\CrushScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
