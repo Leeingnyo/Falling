@@ -193,7 +193,7 @@ public class SpriteControl : MonoBehaviour
                 is_gameover = true;
                 SoundEffectsHelper.Instance.MakeSplatSound();
                 if (FallSpeed < 4)
-                    SendMessage("kill", 0);
+                    SendMessage("kill", 5);
                 else if (FallSpeed < 6)
                     SendMessage("kill", 1);
                 else if (FallSpeed < 8)

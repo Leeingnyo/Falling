@@ -9,6 +9,7 @@ public class DeadSceneSelect:MonoBehaviour{
 		sprite = transform.GetChild(0).gameObject;
 	}
 	void kill(int num){
+		if(num >= deathScenes.Length) num=0;
 		sprite.SetActive(false);
 		deathScenes[num].SetActive(true);
 		Invoke ("endScene",5.0f);
