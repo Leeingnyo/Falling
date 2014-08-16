@@ -38,6 +38,11 @@ public class SpriteControl : MonoBehaviour
     private float wing_speed;
 
     private bool Gameover;
+<<<<<<< HEAD
+=======
+
+    Transform groundCheck;
+>>>>>>> origin/master
     private Transform cam;
     Collider2D[] PlayerColliders = null;
     Collider2D[] TilesColliders = null;
@@ -144,6 +149,7 @@ public class SpriteControl : MonoBehaviour
         if (is_jumping)
         {
             rigidbody2D.velocity = (new Vector2(0f, jumpForce));
+			ParticleManager.manager.setEffect(5,transform.position);
             if (is_crush)
             {
                 if (current_tile != null)
