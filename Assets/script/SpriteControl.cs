@@ -36,7 +36,7 @@ public class SpriteControl : MonoBehaviour
 
         //check the grounded
         is_grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("ground"));
-        Debug.Log(is_grounded);
+        
 
         //input the keys
         int inputHor;
