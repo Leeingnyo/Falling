@@ -102,8 +102,32 @@ public class WoodSpawner : MonoBehaviour
                 wood = Instantiate(reinprefab, newPos, Quaternion.identity) as GameObject;
             wood.layer = LayerMask.NameToLayer("ground");
             wood.transform.parent = newParent.transform;
-            //woodList.Add(wood);
-            //woodList[i].transform.position = newPos;
+            
+            Vector3 AddPos = new Vector3(Random.Range(-1f, 1f), 0.7f, 0);
+            GameObject item;
+            int su = Random.Range(0, 1000);
+            if (0 <= su && su < propertyCrush) {
+                item = Instantiate(crushPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Crush";
+            } else
+            if (propertyCrush <= su && su < propertyCrush + propertySheild) {
+                item = Instantiate(sheildPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Sheild";
+            } else
+            if (propertyCrush + propertySheild <= su && su < propertyCrush + propertySheild + propertyJumpup) {
+                item = Instantiate(jumpupPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Jump_up";
+            } else
+            if (propertyCrush + propertySheild + propertyJumpup <= su && su < propertyCrush + propertySheild + propertyJumpup + propertyWing) {
+                item = Instantiate(wingPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Wing";
+            } else{
+                item = null;
+            }
+            if (item != null) {
+                item.layer = LayerMask.NameToLayer("items");
+                item.transform.parent = newParent.transform;
+            }
         }
 
     }
