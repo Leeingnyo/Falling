@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 2454ee03d870f0045bbf69dd771992b4
-=======
-guid: ddb83b7bb45fd4e5aa05aea53a7ce0a6
->>>>>>> edbf6dc20e0358e5e040ff7651eed072099bb3b5
 TextureImporter:
   fileIDToRecycleName:
     21300000: groundIN
@@ -39,10 +35,10 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
+  alignment: 7
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
