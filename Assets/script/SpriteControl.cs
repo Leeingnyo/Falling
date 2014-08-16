@@ -144,6 +144,7 @@ public class SpriteControl : MonoBehaviour
         if (is_jumping)
         {
             rigidbody2D.velocity = (new Vector2(0f, jumpForce));
+			ParticleManager.manager.setEffect(5,transform.position);
             if (is_crush)
             {
                 if (current_tile != null)
