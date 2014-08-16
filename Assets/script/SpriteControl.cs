@@ -38,11 +38,6 @@ public class SpriteControl : MonoBehaviour
     private float wing_speed;
 
     private bool Gameover;
-<<<<<<< HEAD
-=======
-
-    Transform groundCheck;
->>>>>>> origin/master
     private Transform cam;
     Collider2D[] PlayerColliders = null;
     Collider2D[] TilesColliders = null;
@@ -207,11 +202,11 @@ public class SpriteControl : MonoBehaviour
                 SoundEffectsHelper.Instance.MakeSplatSound();
                 if (FallSpeed < 4)
                     SendMessage("kill", 0);
-                else if (FallSpeed < 6)
-                    SendMessage("kill", 1);
                 else if (FallSpeed < 8)
+                    SendMessage("kill", 1);
+                else if (FallSpeed < 12)
                     SendMessage("kill", 2);
-                else if (FallSpeed < 10)
+                else if (FallSpeed < 16)
                     SendMessage("kill", 3);
                 else
                     SendMessage("kill", 4);
