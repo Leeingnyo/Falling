@@ -7,10 +7,12 @@ public class SpriteControl : MonoBehaviour {
     public int speed = 2;
     public float jumpForce = 100.0f;
     bool jump = false;
-
+    private Transform cam;		
 	// Use this for initialization
 	void Awake () {
 		anim = GetComponentInChildren<Animator>();
+        cam = Camera.main.transform;
+        Camera.main.orthographicSize = 10;
 	}
 	
 	// Update is called once per frame
@@ -32,18 +34,19 @@ public class SpriteControl : MonoBehaviour {
 		if(inputHor!=0){
 			anim.SetInteger("dirc",inputHor/Mathf.Abs(inputHor));
 			anim.SetBool("moving",true);
-            if (inputHor == -1)
-                moveDir += Vector3.left;
+            if (inputHor == -1){
+                moveDir += Vector3.left;}
             else if (inputHor == 1)
                 moveDir += Vector3.right;
             else if (inputHor == 2)
                 moveDir += Vector3.up;
             else if (inputHor == -2)
                 moveDir += Vector3.down;
+            cam.position += moveDir * Time.deltaTime * speed;
 		}else{
 			anim.SetBool("moving",false);
 		}
-
+      
         transform.position += (moveDir * Time.deltaTime * speed);
 	}
 
