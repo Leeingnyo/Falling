@@ -130,13 +130,10 @@ public class SpriteControl : MonoBehaviour
         CheckItem();
 
         //move
-		if(moveDir!=Vector3.zero){
-			currentSpeed = speed * moveDir;
-	        transform.position += (Time.deltaTime * currentSpeed);
-		}else{
-			currentSpeed *= 1-(slip * Time.deltaTime);
-			transform.position += (Time.deltaTime * currentSpeed);
-		}
+		rigidbody2D.AddForce(speed * moveDir);
+		Vector2 vec2 = rigidbody2D.velocity;
+		vec2.x *= 1-(slip * Time.deltaTime);
+		rigidbody2D.velocity = vec2;
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
         //cam move
         if (Gameover == false)

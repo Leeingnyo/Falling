@@ -49,6 +49,7 @@
      <Compile Include="Assets\disableListener.cs" />
      <Compile Include="Assets\script\BackgroundParallax.cs" />
      <Compile Include="Assets\script\DeadSceneSelect.cs" />
+     <Compile Include="Assets\script\Invennumber.cs" />
      <Compile Include="Assets\script\ParticleManager.cs" />
      <Compile Include="Assets\script\ScrollingScript.cs" />
      <Compile Include="Assets\script\SoundEffectsHelper.cs" />
