@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\script\ParticleManager.cs" />
+     <Compile Include="Assets\script\PlayerScript.cs" />
      <Compile Include="Assets\script\SpriteControl.cs" />
      <Compile Include="Assets\script\iTween.cs" />
   </ItemGroup>
