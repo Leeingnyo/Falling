@@ -135,15 +135,17 @@ public class SpriteControl : MonoBehaviour
 		}
         if (is_wing)
         {
-            rigidbody2D.gravityScale = 0;
-            rigidbody2D.velocity = new Vector2(0, 15f);
+            //rigidbody2D.gravityScale = 0;
+            rigidbody2D.velocity = new Vector2(0, 30f);
         }
         if (time_wing < 0.0f)
         {
             foreach (Collider2D colls in Colliders) {
-                if (is_grounded == true)
+                if (is_grounded == true && rigidbody2D.velocity.y < 0)
                     colls.enabled = true;
             }
+            if (rigidbody2D.velocity.y < 0)
+                anim.SetBool("flying", false);
         }
     }
 
@@ -157,7 +159,8 @@ public class SpriteControl : MonoBehaviour
                 if (is_crush)
                 {
                     current_tile = coll.collider;
-                }            }
+                }            
+            }
         }
         if((coll.gameObject.tag == "main_ground") && is_falling){
             Debug.Log("GameOver");
@@ -200,8 +203,9 @@ public class SpriteControl : MonoBehaviour
             if (time_wing < 0.0f)
             {
                 is_wing = false;
-                anim.SetBool("flying", false);
-                speed = 2;            }
+
+                speed = 2;
+            }
         }
     }
 
