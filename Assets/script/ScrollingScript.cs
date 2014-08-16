@@ -26,7 +26,6 @@ public class ScrollingScript : MonoBehaviour
     {
         GameObject newParent = GameObject.Find("1-Background");
         last_bg_pos = last_bg.transform.position;
-        if (last_bg_pos.y + bg_height/3 < Camera.main.transform.position.y)
         {
             Vector3 newPos = new Vector3(last_bg_pos.x, last_bg_pos.y + bg_height, 10);
             last_bg = Instantiate(last_pref, newPos, Quaternion.identity) as GameObject;
