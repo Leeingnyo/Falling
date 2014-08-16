@@ -4,8 +4,8 @@ using System.Collections;
 public class SpriteControl : MonoBehaviour {
 
 	Animator anim;
-    int speed = 2;
-    float jumpForce = 100.0f;
+    public int speed = 2;
+    public float jumpForce = 100.0f;
     bool jump = false;
 
 	// Use this for initialization
@@ -37,7 +37,7 @@ public class SpriteControl : MonoBehaviour {
 		}
 
         if (Input.GetKey(KeyCode.Space))
-            if (jump == false) { //grounded 도 추가
+            if (Physics2D.Linecast()&& jump == false) { //grounded 도 추가
                 anim.SetBool("inAir", true);
                 jump = true;
             }
@@ -53,6 +53,8 @@ public class SpriteControl : MonoBehaviour {
     }
 
     void OnCollisionStay2D(Collision2D coll) {
+         
         anim.SetBool("inAir", false);
     }
+
 }
