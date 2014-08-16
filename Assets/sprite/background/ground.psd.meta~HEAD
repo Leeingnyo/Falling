@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: db34e210fbe694b89b60a79877b14d47
-=======
-guid: 4cf14977623af4139afc8a0f73263e03
->>>>>>> FETCH_HEAD
+guid: 675165fcd4c844850a3cd0dba640ee86
 TextureImporter:
   fileIDToRecycleName:
     21300000: ground
@@ -30,32 +26,19 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-<<<<<<< HEAD
     aniso: -1
     mipBias: -1
     wrapMode: -1
-=======
-    aniso: 1
-    mipBias: -1
-    wrapMode: 1
->>>>>>> FETCH_HEAD
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-<<<<<<< HEAD
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
-=======
-  alignment: 7
-  spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 200
->>>>>>> FETCH_HEAD
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
