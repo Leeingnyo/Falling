@@ -50,7 +50,7 @@
      <Compile Include="Assets\script\PlayerScript.cs" />
      <Compile Include="Assets\script\ScrollingScript.cs" />
      <Compile Include="Assets\script\SpriteControl.cs" />
-     <Compile Include="Assets\script\WoodSpawn.cs" />
+     <Compile Include="Assets\script\WoodSpawner.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
