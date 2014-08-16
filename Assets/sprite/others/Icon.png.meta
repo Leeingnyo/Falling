@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: db34e210fbe694b89b60a79877b14d47
+guid: b0cf4255cc21b4efd84b537c9f8e8f8b
 TextureImporter:
   fileIDToRecycleName:
-    21300000: ground
+    21300000: Icon
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
