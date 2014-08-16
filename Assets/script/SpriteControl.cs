@@ -10,16 +10,21 @@ public class SpriteControl : MonoBehaviour {
     bool is_jumping = false;
     bool is_grounded = false;
 
+    float max_h=0;
+
     Transform groundCheck;
+    private Transform cam;	
 
 	// Use this for initialization
 	void Awake () {
 		anim = GetComponentInChildren<Animator>();
         groundCheck = transform.Find("GroundCheck");
+        cam = Camera.main.transform;
+        Camera.main.orthographicSize = 5;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    void Update() {
         //init
         Vector3 moveDir = Vector3.zero;
 
@@ -28,12 +33,12 @@ public class SpriteControl : MonoBehaviour {
 
         //input the keys
 		int inputHor;
-		if(Input.GetKey(KeyCode.LeftArrow))
-			inputHor = -1;
-		else if(Input.GetKey(KeyCode.RightArrow))
-			inputHor = 1;
-		else
-			inputHor = 0;
+        if (Input.GetKey(KeyCode.LeftArrow))
+            inputHor = -1;
+        else if (Input.GetKey(KeyCode.RightArrow))
+            inputHor = 1;
+        else
+            inputHor = 0;
 
         int inputJump;
         if (Input.GetKey(KeyCode.Space))
@@ -56,8 +61,11 @@ public class SpriteControl : MonoBehaviour {
             anim.SetBool("moving", false);
         }
 
+        if (is_grounded == true)
+            anim.SetBool("inAir", false);
         if (inputJump != 0)
-            if (is_jumping == false && is_grounded == true) {
+            if (is_jumping == false && is_grounded == true)
+            {
                 anim.SetBool("inAir", true);
                 is_jumping = true;
             }
@@ -65,16 +73,21 @@ public class SpriteControl : MonoBehaviour {
         //move
         transform.position += (moveDir * Time.deltaTime * speed);
 
+        cam.transform.position = new Vector3(0, transform.position.y, -1);
 	}
 
-    void FixedUpdate() {
-        if (is_jumping) {
+    void FixedUpdate()
+    {
+        if (is_jumping)
+        {
             rigidbody2D.AddForce(new Vector2(0f, jumpForce));
         }
         is_jumping = false;
     }
 
-    void OnCollisionStay2D(Collision2D coll) {
-        anim.SetBool("inAir", false);
+    void OnCollisionStay(Collision coll){
+        if (is_grounded) {
+            max_h = coll.transform.position.y;
+        }
     }
 }
