@@ -154,11 +154,7 @@ public class SpriteControl : MonoBehaviour
         }
         if (time_wing < 0.0f)
         {
-<<<<<<< HEAD
-            foreach (Collider2D colls in Colliders) {
-=======
             foreach (Collider2D colls in PlayerColliders) {
->>>>>>> origin/master
                 if (is_grounded == true && rigidbody2D.velocity.y < 0)
                     colls.enabled = true;
             }
@@ -177,11 +173,7 @@ public class SpriteControl : MonoBehaviour
                 if (is_crush)
                 {
                     current_tile = coll.collider;
-<<<<<<< HEAD
-                }            
-=======
                 }
->>>>>>> origin/master
             }
         }
         if((coll.gameObject.tag == "main_ground") && is_falling){
@@ -223,11 +215,6 @@ public class SpriteControl : MonoBehaviour
             if (time_wing < 0.0f)
             {
                 is_wing = false;
-<<<<<<< HEAD
-
-=======
-                anim.SetBool("flying", false);
->>>>>>> origin/master
                 speed = 2;
             }
         }
