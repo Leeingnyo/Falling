@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 9dd3165a74620471381adfcf5ff60155
+=======
 guid: 9aa712e40af4c42058374799e205df19
+>>>>>>> FETCH_HEAD
 TextureImporter:
   fileIDToRecycleName:
     21300000: blood_After
@@ -26,9 +30,15 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
+<<<<<<< HEAD
+    aniso: -1
+    mipBias: -1
+    wrapMode: -1
+=======
     aniso: 1
     mipBias: -1
     wrapMode: 1
+>>>>>>> FETCH_HEAD
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -38,7 +48,11 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+<<<<<<< HEAD
+  spritePixelsToUnits: 100
+=======
   spritePixelsToUnits: 400
+>>>>>>> FETCH_HEAD
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
