@@ -34,13 +34,10 @@ public class SpriteControl : MonoBehaviour
     public static int num_sheild;
 
     private float max_h;
-<<<<<<< HEAD
     private float wing_speed;
-=======
 
     private bool Gameover;
 
->>>>>>> origin/master
     Transform groundCheck;
     private Transform cam;
     Collider2D[] PlayerColliders = null;
