@@ -16,7 +16,7 @@ public class ScrollingScript : MonoBehaviour
     {
         GameObject newParent = GameObject.Find("1-Background");
 
-        last_bg_pos = new Vector3(0, 0, 10);
+        last_bg_pos = new Vector3(0, 7.2f, 10);
         last_bg = Instantiate(last_pref, last_bg_pos, Quaternion.identity) as GameObject;
         last_bg.transform.parent = newParent.transform;
         bg_height = last_bg.renderer.bounds.max.y - last_bg.renderer.bounds.min.y;
