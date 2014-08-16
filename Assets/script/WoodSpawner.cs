@@ -43,7 +43,7 @@ public class WoodSpawner : MonoBehaviour
         GameObject newParent = GameObject.Find("2-Midground");
         for (int i = 0; i < max_wood_cnt; i++)
         {
-            Vector3 newPos = new Vector3(Random.Range(x_min_bound, x_max_bound), Random.Range(sum_y - dy, sum_y), 0);
+            Vector3 newPos = new Vector3(Random.Range(x_min_bound, x_max_bound), Random.Range(3+sum_y - dy, 3+sum_y), 0);
             GameObject wood;
             if (Random.Range(0, 2) % 2 == 1)
                 wood = Instantiate(woodprefab, newPos, Quaternion.identity) as GameObject;
