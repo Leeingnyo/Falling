@@ -48,6 +48,10 @@ public class WoodSpawner : MonoBehaviour
             //woodPosList.Add(newPos);
             wood.transform.parent = newParent.transform;
             last_wood_pos = newPos;
+
+            GameObject item;
+            switch (Random.Range(0, 10)) {
+            }
         }
 
     }
