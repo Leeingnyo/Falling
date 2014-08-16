@@ -51,7 +51,7 @@
      <Compile Include="Assets\script\PlayerScript.cs" />
      <Compile Include="Assets\script\ScrollingScript.cs" />
      <Compile Include="Assets\script\SpriteControl.cs" />
-     <Compile Include="Assets\script\WoodSpawn.cs" />
+     <Compile Include="Assets\script\WoodSpawner.cs" />
      <Compile Include="Assets\script\iTween.cs" />
      <Compile Include="Assets\script\intro.cs" />
   </ItemGroup>
