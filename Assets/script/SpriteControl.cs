@@ -29,7 +29,8 @@ public class SpriteControl : MonoBehaviour
 
     Transform groundCheck;
     private Transform cam;
-    Collider2D[] Colliders = null;
+    Collider2D[] PlayerColliders = null;
+    Collider2D[] TilesColliders = null;
     Collider2D current_tile = null;
     // Use this for initialization
     void Awake()
@@ -40,7 +41,7 @@ public class SpriteControl : MonoBehaviour
         max_h = 0;
     }
     void Start() {
-        Colliders = gameObject.GetComponents<Collider2D>();
+        PlayerColliders = gameObject.GetComponents<Collider2D>();
     }
     // Update is called once per frame
     void Update()
@@ -91,8 +92,20 @@ public class SpriteControl : MonoBehaviour
                 is_jumping = true;
             }
         //check fall
-        if (max_h - 0.4 > transform.position.y)
+        if ((max_h - 0.4 > transform.position.y) && is_falling == false)
         {
+            TilesColliders = GameObject.Find("2-Midground").GetComponentsInChildren<Collider2D>();
+            foreach (Collider2D colls in TilesColliders){
+                colls.isTrigger = true;
+                switch (colls.tag) {
+                    case "Crush": case "Jump_up":
+                    case "Wing": case "Sheild":
+                        SpriteRenderer rend = colls.GetComponentInChildren<SpriteRenderer>();
+                        rend.enabled = false;
+                        break;
+                }
+            }
+
             is_falling = true;
             anim.SetTrigger("fall");
             this.rigidbody2D.fixedAngle = false;
@@ -129,6 +142,7 @@ public class SpriteControl : MonoBehaviour
             }
         }
         is_jumping = false;
+
 		if(is_falling){
 			rigidbody2D.gravityScale = 0;
 			rigidbody2D.velocity = new Vector2(0, -3);
@@ -140,8 +154,8 @@ public class SpriteControl : MonoBehaviour
         }
         if (time_wing < 0.0f)
         {
-            foreach (Collider2D colls in Colliders) {
-                if (is_grounded == true)
+            foreach (Collider2D colls in PlayerColliders) {
+                if (is_grounded == true && rigidbody2D.velocity.y < 0)
                     colls.enabled = true;
             }
         }
@@ -157,10 +171,14 @@ public class SpriteControl : MonoBehaviour
                 if (is_crush)
                 {
                     current_tile = coll.collider;
-                }            }
+                }
+            }
         }
         if((coll.gameObject.tag == "main_ground") && is_falling){
             Debug.Log("GameOver");
+
+            SendMessage("kill", 3);
+
             /////////////////////GAME OVER EFFECT HERE//////////////////////////
         }
     }
@@ -198,41 +216,45 @@ public class SpriteControl : MonoBehaviour
             {
                 is_wing = false;
                 anim.SetBool("flying", false);
-                speed = 2;            }
+                speed = 2;
+            }
         }
     }
 
     void OnTriggerEnter2D(Collider2D coll) {
-        switch (coll.tag) {
-            case "Crush":
-                is_crush = true;
-                time_crush = 5.0f;
-                Destroy(coll.gameObject);
-                SoundEffectsHelper.Instance.MakeItemGetSound();
-                break;
-            case "Jump_up":
-                is_jumpup = true;
-                time_jumpup = 5.0f;
-                Destroy(coll.gameObject);
-                SoundEffectsHelper.Instance.MakeItemGetSound();
-                break;
-            case "Wing":
-                is_wing = true;
-                time_wing = 1.5f;
-                
-                foreach (Collider2D colls in Colliders) {
-                    colls.enabled = false;
-                }
+        if (is_falling == false)
+        {
+            switch (coll.tag)
+            {
+                case "Crush":
+                    is_crush = true;
+                    time_crush = 5.0f;
+                    Destroy(coll.gameObject);
+					SoundEffectsHelper.Instance.MakeItemGetSound();
+					break;
+                case "Jump_up":
+                    is_jumpup = true;
+                    time_jumpup = 5.0f;
+                    Destroy(coll.gameObject);
+                	SoundEffectsHelper.Instance.MakeItemGetSound();
+                    break;
+                case "Wing":
+                    is_wing = true;
+                    time_wing = 1.5f;
 
-                Destroy(coll.gameObject);
-                SoundEffectsHelper.Instance.MakeItemGetSound();
-                break;
-            case "Sheild":
-                num_sheild++;
-                Destroy(coll.gameObject);
-                SoundEffectsHelper.Instance.MakeItemGetSound();
-                break;
-        }
+                    foreach (Collider2D colls in PlayerColliders)
+                    {
+                        colls.enabled = false;
+                    }
+                	SoundEffectsHelper.Instance.MakeItemGetSound();
+                    Destroy(coll.gameObject);
+                    break;
+                case "Sheild":
+                    num_sheild++;
+                    Destroy(coll.gameObject);
+	                SoundEffectsHelper.Instance.MakeItemGetSound();
+                    break;
+            }        }
 
         if (coll.tag == "tiles") {
             if (is_falling == true) {

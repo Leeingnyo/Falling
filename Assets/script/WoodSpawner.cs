@@ -43,7 +43,7 @@ public class WoodSpawner : MonoBehaviour
         GameObject newParent = GameObject.Find("2-Midground");
         for (int i = 0; i < max_wood_cnt; i++)
         {
-            Vector3 newPos = new Vector3(Random.Range(x_min_bound, x_max_bound), Random.Range(sum_y - dy, sum_y), 0);
+            Vector3 newPos = new Vector3(Random.Range(x_min_bound, x_max_bound), Random.Range(3+sum_y - dy, 3+sum_y), 0);
             GameObject wood;
             if (Random.Range(0, 2) % 2 == 1)
                 wood = Instantiate(woodprefab, newPos, Quaternion.identity) as GameObject;
@@ -102,8 +102,32 @@ public class WoodSpawner : MonoBehaviour
                 wood = Instantiate(reinprefab, newPos, Quaternion.identity) as GameObject;
             wood.layer = LayerMask.NameToLayer("ground");
             wood.transform.parent = newParent.transform;
-            //woodList.Add(wood);
-            //woodList[i].transform.position = newPos;
+            
+            Vector3 AddPos = new Vector3(Random.Range(-1f, 1f), 0.7f, 0);
+            GameObject item;
+            int su = Random.Range(0, 1000);
+            if (0 <= su && su < propertyCrush) {
+                item = Instantiate(crushPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Crush";
+            } else
+            if (propertyCrush <= su && su < propertyCrush + propertySheild) {
+                item = Instantiate(sheildPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Sheild";
+            } else
+            if (propertyCrush + propertySheild <= su && su < propertyCrush + propertySheild + propertyJumpup) {
+                item = Instantiate(jumpupPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Jump_up";
+            } else
+            if (propertyCrush + propertySheild + propertyJumpup <= su && su < propertyCrush + propertySheild + propertyJumpup + propertyWing) {
+                item = Instantiate(wingPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Wing";
+            } else{
+                item = null;
+            }
+            if (item != null) {
+                item.layer = LayerMask.NameToLayer("items");
+                item.transform.parent = newParent.transform;
+            }
         }
 
     }
