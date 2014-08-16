@@ -6,48 +6,31 @@ using UnityEngine;
 /// </summary>
 public class ScrollingScript : MonoBehaviour
 {
-    public bool isLooping = true;
-    private List<Transform> backgroundPart;
+    public GameObject last_pref;
+    private GameObject last_bg;
+    private Transform child;
+    private Vector3 last_bg_pos;
+    private float bg_height;
 
     void Start()
     {
-       
-        if (isLooping)
-        {
-            backgroundPart = new List<Transform>();
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                Transform child = transform.GetChild(i);
+        GameObject newParent = GameObject.Find("1-Background");
 
-                if (child.renderer != null)
-                {
-                    backgroundPart.Add(child);
-                }
-            }
-
-            backgroundPart = backgroundPart.OrderBy(
-              t => t.position.y
-            ).ToList();
-        }
+        last_bg_pos = new Vector3(0, 0, 10);
+        last_bg = Instantiate(last_pref, last_bg_pos, Quaternion.identity) as GameObject;
+        last_bg.transform.parent = newParent.transform;
+        bg_height = last_bg.renderer.bounds.max.y - last_bg.renderer.bounds.min.y;
     }
-
+    
     void Update()
     {
-        if (isLooping)
+        GameObject newParent = GameObject.Find("1-Background");
+        last_bg_pos = last_bg.transform.position;
+        if (last_bg_pos.y + bg_height/3 < Camera.main.transform.position.y)
         {
-            Transform firstChild = backgroundPart.FirstOrDefault();
-            Vector3 firstPosition = firstChild.transform.position;
-            Vector3 firstSize = (firstChild.renderer.bounds.max - firstChild.renderer.bounds.min);
-            if (firstChild != null)
-            {
-                if (firstChild.position.y + firstSize.y < Camera.main.transform.position.y)
-                {
-                    firstChild.position = new Vector3(firstPosition.x, firstPosition.y + firstSize.y*2, firstPosition.z);
-
-                    backgroundPart.Remove(firstChild);
-                    backgroundPart.Add(firstChild);                    
-                }
-            }
+            Vector3 newPos = new Vector3(last_bg_pos.x, last_bg_pos.y + bg_height, 10);
+            last_bg = Instantiate(last_pref, newPos, Quaternion.identity) as GameObject;
+            last_bg.transform.parent = newParent.transform;
         }
     }
 }

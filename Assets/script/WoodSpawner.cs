@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 public class WoodSpawner : MonoBehaviour {
-    private List<GameObject> woodList;
+    //private List<GameObject> woodList;
     public List<Vector3> woodPosList;
     public GameObject woodprefab;
     public GameObject bgprefab;
@@ -16,9 +16,11 @@ public class WoodSpawner : MonoBehaviour {
 
     GameObject newParent;
 
+    private Vector3 last_wood_pos;
+
     void Awake()
     {
-        woodList = new List<GameObject>();
+        //woodList = new List<GameObject>();
         woodPosList = new List<Vector3>();
         x_min_bound = bgprefab.renderer.bounds.min.x + (woodprefab.renderer.bounds.max.x - woodprefab.renderer.bounds.min.x);
         x_max_bound = bgprefab.renderer.bounds.max.x - (woodprefab.renderer.bounds.max.x - woodprefab.renderer.bounds.min.x);
@@ -33,30 +35,33 @@ public class WoodSpawner : MonoBehaviour {
         {
             Vector3 newPos = new Vector3(Random.Range(x_min_bound, x_max_bound), Random.Range(sum_y - dy, sum_y), 0);
             GameObject wood = Instantiate(woodprefab, newPos, Quaternion.identity) as GameObject;
+            wood.layer = LayerMask.NameToLayer("ground");
             sum_y += dy;
-            woodList.Add(wood);
             woodPosList.Add(newPos);
             wood.transform.parent = newParent.transform;
+            last_wood_pos = newPos;
         }
+        
 	}
 
     // Update is called once per frame
     void Update()
     {
         GameObject player = GameObject.Find("Player");
-        for (int i = 0; i < max_wood_cnt; i++)
+        GameObject newParent = GameObject.Find("2-Midground");
+        if (player.transform.position.y + 20 > last_wood_pos.y)
         {
-            if (player.transform.position.y - 5 > woodList[i].transform.position.y)
-            {
-                int index = i;
-                if (index == 0)
-                    index = max_wood_cnt;
-                float last_y = woodList[index - 1].transform.position.y;
-                Vector3 newPos = new Vector3(Random.Range(x_min_bound, x_max_bound), Random.Range(last_y+5, last_y + dy +5), 0);
-                woodPosList.Add(newPos);
-                woodList[i].transform.position = newPos;
-            }
+            float last_y = last_wood_pos.y;
+            Vector3 newPos = new Vector3(Random.Range(x_min_bound, x_max_bound), Random.Range(last_y+5, last_y + dy +5), 0);
+            last_wood_pos = newPos;
+            woodPosList.Add(newPos);
+            GameObject wood = Instantiate(woodprefab, newPos, Quaternion.identity) as GameObject;
+            wood.layer = LayerMask.NameToLayer("ground");
+            wood.transform.parent = newParent.transform;
+            //woodList.Add(wood);
+            //woodList[i].transform.position = newPos;
         }
+        
 	}
 }
 
