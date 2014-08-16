@@ -17,6 +17,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+<<<<<<< HEAD
 																												GlobalSection(MonoDevelopProperties) = preSolution
 =======
 																						GlobalSection(MonoDevelopProperties) = preSolution
@@ -32,6 +33,9 @@ Global
 >>>>>>> FETCH_HEAD
 =======
 																												GlobalSection(MonoDevelopProperties) = preSolution
+=======
+																																	GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> origin/JuHyeng
 								GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> FETCH_HEAD
 		StartupItem = Assembly-CSharp.csproj
