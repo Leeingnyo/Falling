@@ -32,7 +32,7 @@ public class SpriteControl : MonoBehaviour
     private int num_sheild;
 
     private float max_h;
-
+    private float wing_speed;
     Transform groundCheck;
     private Transform cam;
     Collider2D[] PlayerColliders = null;
@@ -159,17 +159,22 @@ public class SpriteControl : MonoBehaviour
         if (is_wing)
         {
             //rigidbody2D.gravityScale = 0;
-            rigidbody2D.velocity = new Vector2(0, 30f);
-        }
-        if (time_wing < 0.0f)
-        {
-            foreach (Collider2D colls in PlayerColliders) {
-                if (is_grounded == true && rigidbody2D.velocity.y < 0)
-                    colls.enabled = true;
-            }
-            if (rigidbody2D.velocity.y < 0)
+            wing_speed -= Time.deltaTime * 10;
+            rigidbody2D.velocity = new Vector2(0, wing_speed);
+            if (0.0f > wing_speed)
+            {
+                foreach (Collider2D colls in PlayerColliders)
+                {
+                        colls.enabled = true;
+                        
+                   
+                }
                 anim.SetBool("flying", false);
+                is_wing = false;
+                speed = 2;
+            }
         }
+        
     }
 
     void OnCollisionStay2D(Collision2D coll)
@@ -231,14 +236,16 @@ public class SpriteControl : MonoBehaviour
         }
         if (is_wing)
         {
-            time_wing -= Time.deltaTime;
+            //time_wing -= Time.deltaTime;
             anim.SetBool("flying", true);
             speed = 5;
+            /*
             if (time_wing < 0.0f)
             {
                 is_wing = false;
                 speed = 2;
             }
+             */
         }
     }
 
@@ -262,7 +269,7 @@ public class SpriteControl : MonoBehaviour
                 case "Wing":
                     is_wing = true;
                     time_wing = 1.5f;
-
+                    wing_speed = 30.0f;
                     foreach (Collider2D colls in PlayerColliders)
                     {
                         colls.enabled = false;
