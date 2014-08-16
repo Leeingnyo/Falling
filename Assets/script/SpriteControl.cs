@@ -17,6 +17,8 @@ public class SpriteControl : MonoBehaviour
     private float FallSpeed;
     public float woodSlower;
     bool is_gameover;
+	private GameObject shieldEffect;
+	private GameObject shoeEffect;
 
     bool is_jumping = false;
     bool is_grounded = false;
@@ -50,7 +52,9 @@ public class SpriteControl : MonoBehaviour
     }
     void Start() {
         PlayerColliders = gameObject.GetComponents<Collider2D>();
-    }
+		shieldEffect = transform.Find("shieldEffect").gameObject;
+		shoeEffect = transform.Find("shoeEffect").gameObject;
+	}
     // Update is called once per frame
     void Update()
     {
@@ -257,7 +261,8 @@ public class SpriteControl : MonoBehaviour
                     is_jumpup = true;
                     time_jumpup = 5.0f;
                     Destroy(coll.gameObject);
-                	SoundEffectsHelper.Instance.MakeItemGetSound();
+					shoeEffect.GetComponent<ParticleSystem>().Play();
+					SoundEffectsHelper.Instance.MakeItemGetSound();
                     break;
                 case "Wing":
                     is_wing = true;
@@ -273,14 +278,17 @@ public class SpriteControl : MonoBehaviour
                 case "Sheild":
                     num_sheild++;
                     Destroy(coll.gameObject);
-	                SoundEffectsHelper.Instance.MakeItemGetSound();
+					shieldEffect.GetComponent<ParticleSystem>().Play();
+					SoundEffectsHelper.Instance.MakeItemGetSound();
                     break;
-            }        }
+            }        
+		}
 
         if (coll.tag == "tiles") {
             if (is_falling == true) {
                 if (num_sheild > 0) {
                     num_sheild--;
+					shieldEffect.GetComponent<ParticleSystem>().Play();
                 }
                 else {
                     rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
