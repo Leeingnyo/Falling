@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/itemGraphic.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/ScrollingScript.cs">
     <Files>
-      <File FileName="Assets/script/itemGraphic.cs" Line="7" Column="46" />
+      <File FileName="Assets/script/ScrollingScript.cs" Line="19" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

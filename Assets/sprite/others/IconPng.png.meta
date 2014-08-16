@@ -1,12 +1,9 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: a8b9d181e910b488e949fb2c4e6f40da
-=======
-guid: ebdad2ee2105e40a3a289ec94ad6f01d
->>>>>>> FETCH_HEAD
+guid: ac1bcbb5824684ddfa296d0d34a2f60f
 TextureImporter:
   fileIDToRecycleName:
     21300000: Icon
+    21300002: IconPng
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -29,10 +26,10 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 1024
   textureSettings:
-    filterMode: -1
-    aniso: -1
+    filterMode: 2
+    aniso: 1
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
