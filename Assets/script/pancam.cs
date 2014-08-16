@@ -8,6 +8,13 @@ public class pancam : MonoBehaviour
     public GUIElement gui;
     float playerHeight = 0;
     float playerVelo = 0;
+    GameObject Player;
+
+    void Start()
+    {
+        Player = GameObject.Find("Player");
+    }
+
     void Update()
     {
         playerHeight = Camera.main.transform.position.y-3;
@@ -20,7 +27,7 @@ public class pancam : MonoBehaviour
             if(playerHeight > 0)
                 playerVelo = Camera.main.velocity.y;
 
-            gui.guiText.text = ((int)playerHeight).ToString() + "m\n" + ((int)playerVelo).ToString()+"m/s";
+            gui.guiText.text = ((int)playerHeight).ToString() + "m\n" + ((int)Player.rigidbody2D.velocity.y).ToString()+"m/s";
             transform.position = new Vector3(transform.position.x / 2, transform.position.y, -10);
         }
         
