@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: b408628cbebff4a74b87cb5fa3e14ca3
+=======
+guid: a98aa8017eacdf844ac5a204d6b11c10
+>>>>>>> b3afbea65a5f3b8ced42e9b93fecb7b498e33186
 TextureImporter:
   fileIDToRecycleName:
     21300000: JumpUp
