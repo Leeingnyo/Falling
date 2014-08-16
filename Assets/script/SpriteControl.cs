@@ -24,6 +24,7 @@ public class SpriteControl : MonoBehaviour
     bool is_grounded = false;
 
     bool is_falling = false;
+    int fallingnum = 0;
 
     private float time_crush;
     bool is_crush;
@@ -121,10 +122,21 @@ public class SpriteControl : MonoBehaviour
                 }
             }
 
-            is_falling = true;
             anim.SetTrigger("fall");
-            //this.rigidbody2D.fixedAngle = false;
             speed = 5;
+            fallingnum++;
+
+            gameObject.GetComponent<Collider2D>().enabled = false;
+
+            Time.timeScale = 0.001f;
+
+            cam.transform.position = new Vector3(0, Mathf.Clamp(transform.position.y - 1f / 10000f * fallingnum * fallingnum, 3f, Mathf.Infinity), -1);
+
+            if (fallingnum > 99){
+                Time.timeScale = 1;
+                fallingnum = 0;
+                is_falling = true;
+            }
         }
         //check item
         CheckItem();
@@ -140,7 +152,13 @@ public class SpriteControl : MonoBehaviour
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
         //cam move
         if (Gameover == false)
-            cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
+            if (is_falling == false)
+            {
+                if (!(max_h - 0.4 > transform.position.y))
+                    cam.transform.position = new Vector3(0, Mathf.Clamp(transform.position.y, 3f, Mathf.Infinity), -1);
+            }
+            else
+                cam.transform.position = new Vector3(0, Mathf.Clamp(transform.position.y - 1f, 3f, Mathf.Infinity), -1);
     }
 
     void FixedUpdate()
@@ -167,16 +185,13 @@ public class SpriteControl : MonoBehaviour
 		}
         if (is_wing)
         {
-            //rigidbody2D.gravityScale = 0;
             wing_speed -= Time.deltaTime * 10;
             rigidbody2D.velocity = new Vector2(0, wing_speed);
             if (0.0f > wing_speed)
             {
                 foreach (Collider2D colls in PlayerColliders)
                 {
-                        colls.enabled = true;
-                        
-                   
+                    colls.enabled = true;
                 }
                 anim.SetBool("flying", false);
                 is_wing = false;
@@ -245,16 +260,8 @@ public class SpriteControl : MonoBehaviour
         }
         if (is_wing)
         {
-            //time_wing -= Time.deltaTime;
             anim.SetBool("flying", true);
             speed = 5;
-            /*
-            if (time_wing < 0.0f)
-            {
-                is_wing = false;
-                speed = 2;
-            }
-             */
         }
     }
 
@@ -302,7 +309,10 @@ public class SpriteControl : MonoBehaviour
                     num_sheild--;
 					shieldEffect.GetComponent<ParticleSystem>().Play();
                 }
-                else {
+                else
+                {
+                    Time.timeScale = 0.33f;
+                    Invoke("Recover", 0.1f);
                     rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도를 늦춤
                     Destroy(coll.gameObject);
                     SoundEffectsHelper.Instance.MakeCrashSound();
@@ -312,6 +322,10 @@ public class SpriteControl : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Recover() {
+        Time.timeScale = 1;
     }
 
     public static int GetNumSheild()
