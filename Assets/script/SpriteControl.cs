@@ -185,8 +185,6 @@ public class SpriteControl : MonoBehaviour
             }
         }
         if((coll.gameObject.tag == "main_ground") && is_falling){
-            Debug.Log("GameOver");
-
             SendMessage("kill", 3);
 
             /////////////////////GAME OVER EFFECT HERE//////////////////////////
