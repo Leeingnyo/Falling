@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9a4762e7eed944ca0a0c8bdc53f4045d
+guid: 50180c77c675f47a684ff75270884a6f
 TextureImporter:
   fileIDToRecycleName:
     21300000: background
@@ -41,11 +41,7 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
-  buildTargetSettings:
-  - buildTarget: iPhone
-    maxTextureSize: 1024
-    textureFormat: -2
-    compressionQuality: 50
+  buildTargetSettings: []
   spriteSheet:
     sprites: []
   spritePackingTag: 

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: b01ed3b3ebb414fb78c23abc8a2939c5
+=======
+guid: 83285d0b315bb42c7bac20766b584276
+>>>>>>> FETCH_HEAD
 TextureImporter:
   fileIDToRecycleName:
     21300000: sample
@@ -26,9 +30,15 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
+<<<<<<< HEAD
     aniso: 1
     mipBias: -1
     wrapMode: 1
+=======
+    aniso: -1
+    mipBias: -1
+    wrapMode: -1
+>>>>>>> FETCH_HEAD
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -41,11 +51,15 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
+<<<<<<< HEAD
   buildTargetSettings:
   - buildTarget: iPhone
     maxTextureSize: 1024
     textureFormat: -2
     compressionQuality: 50
+=======
+  buildTargetSettings: []
+>>>>>>> FETCH_HEAD
   spriteSheet:
     sprites: []
   spritePackingTag: 
