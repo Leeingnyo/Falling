@@ -30,7 +30,7 @@ public class ParticleManager:MonoBehaviour{
 		if(_index[ParticleNumber] == indexMax) _index[ParticleNumber] = 0;
 		return EffectArray[ParticleNumber,_index[ParticleNumber]++];
 	}
-	public GameObject setEffect(int ParticleNumber,Vector3 pos, int dirc) {
+	public GameObject setEffect(int ParticleNumber,Vector3 pos, int dirc=1) {
 		GameObject _effect = getParticle(ParticleNumber);
 		_effect.transform.position = pos;
 		_effect.transform.localScale = new Vector3(dirc,1,1);
