@@ -159,6 +159,10 @@ public class SpriteControl : MonoBehaviour
                     current_tile = coll.collider;
                 }            }
         }
+        if((coll.gameObject.tag == "main_ground") && is_falling){
+            Debug.Log("GameOver");
+            /////////////////////GAME OVER EFFECT HERE//////////////////////////
+        }
     }
 
     public void CheckItem()
