@@ -24,7 +24,6 @@ public class SpriteControl : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         groundCheck = transform.Find("GroundCheck");
         cam = Camera.main.transform;
-        Camera.main.orthographicSize = 8;
         Height = 0;
     }
 
