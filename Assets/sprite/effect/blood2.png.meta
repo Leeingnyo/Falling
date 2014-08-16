@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 50180c77c675f47a684ff75270884a6f
+guid: 0ea8c5a6aed504775ad00c244cd9d4af
 TextureImporter:
   fileIDToRecycleName:
-    21300000: background
+    21300000: blood2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -26,17 +26,17 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 1
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: .5, y: .5}
+  alignment: 9
+  spritePivot: {x: .519999981, y: .200000003}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1

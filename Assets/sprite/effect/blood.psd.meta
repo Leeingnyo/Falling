@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 50180c77c675f47a684ff75270884a6f
+guid: 20563a4d508b94eeab1505790c13e227
 TextureImporter:
   fileIDToRecycleName:
-    21300000: background
+    21300000: blood
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
