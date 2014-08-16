@@ -101,6 +101,7 @@ public class WoodSpawner : MonoBehaviour
             else
                 wood = Instantiate(reinprefab, newPos, Quaternion.identity) as GameObject;
             wood.layer = LayerMask.NameToLayer("ground");
+            wood.tag = "tiles";
             wood.transform.parent = newParent.transform;
             
             Vector3 AddPos = new Vector3(Random.Range(-1f, 1f), 0.7f, 0);

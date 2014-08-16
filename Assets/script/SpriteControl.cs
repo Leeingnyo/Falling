@@ -31,9 +31,12 @@ public class SpriteControl : MonoBehaviour
     bool is_wing;
     private float time_jumpup;
     bool is_jumpup;
-    private int num_sheild;
+    public static int num_sheild;
 
     private float max_h;
+    private float wing_speed;
+
+    private bool Gameover;
 
     Transform groundCheck;
     private Transform cam;
@@ -136,7 +139,8 @@ public class SpriteControl : MonoBehaviour
 		}
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
         //cam move
-        cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
+        if (Gameover == false)
+            cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
     }
 
     void FixedUpdate()
@@ -150,6 +154,7 @@ public class SpriteControl : MonoBehaviour
                 if (current_tile != null)
                 {
                     Destroy(current_tile.gameObject);
+                    SoundEffectsHelper.Instance.MakeCrashSound();
                     current_tile = null;
                 }
             }
@@ -164,17 +169,22 @@ public class SpriteControl : MonoBehaviour
         if (is_wing)
         {
             //rigidbody2D.gravityScale = 0;
-            rigidbody2D.velocity = new Vector2(0, 30f);
-        }
-        if (time_wing < 0.0f)
-        {
-            foreach (Collider2D colls in PlayerColliders) {
-                if (is_grounded == true && rigidbody2D.velocity.y < 0)
-                    colls.enabled = true;
-            }
-            if (rigidbody2D.velocity.y < 0)
+            wing_speed -= Time.deltaTime * 10;
+            rigidbody2D.velocity = new Vector2(0, wing_speed);
+            if (0.0f > wing_speed)
+            {
+                foreach (Collider2D colls in PlayerColliders)
+                {
+                        colls.enabled = true;
+                        
+                   
+                }
                 anim.SetBool("flying", false);
+                is_wing = false;
+                speed = 2;
+            }
         }
+        
     }
 
     void OnCollisionStay2D(Collision2D coll)
@@ -236,14 +246,16 @@ public class SpriteControl : MonoBehaviour
         }
         if (is_wing)
         {
-            time_wing -= Time.deltaTime;
+            //time_wing -= Time.deltaTime;
             anim.SetBool("flying", true);
             speed = 5;
+            /*
             if (time_wing < 0.0f)
             {
                 is_wing = false;
                 speed = 2;
             }
+             */
         }
     }
 
@@ -268,7 +280,7 @@ public class SpriteControl : MonoBehaviour
                 case "Wing":
                     is_wing = true;
                     time_wing = 1.5f;
-
+                    wing_speed = 30.0f;
                     foreach (Collider2D colls in PlayerColliders)
                     {
                         colls.enabled = false;
@@ -292,9 +304,8 @@ public class SpriteControl : MonoBehaviour
 					shieldEffect.GetComponent<ParticleSystem>().Play();
                 }
                 else {
-                    rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
-                    //부숴지는 이펙트 설정 (?)
-                    Destroy(coll.gameObject, 1); //진짜로 부숨
+                    rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도를 늦춤
+                    Destroy(coll.gameObject);
                     SoundEffectsHelper.Instance.MakeCrashSound();
                     FallSpeed -= woodSlower;
                     if (FallSpeed < initFallSpeed)
@@ -302,5 +313,11 @@ public class SpriteControl : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static int GetNumSheild()
+    {
+        int num = num_sheild;
+        return num;
     }
 }
