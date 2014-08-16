@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: 45be94c924f6f47bdbf9e1cc2337f7e1
+guid: a114c4f5931734e72b82d53710c70df7
 TextureImporter:
   fileIDToRecycleName:
-    21300000: background
+    21300000: blockParticle
+    21300002: blockParticle_0
+    21300004: blockParticle_1
+    21300006: blockParticle_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,17 +35,47 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 600
+  spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: blockParticle_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 86
+        width: 55
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blockParticle_1
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 86
+        width: 57
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blockParticle_2
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 24
+        width: 42
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
