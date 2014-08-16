@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 28a9371fecd654f2d897c52ea19bcb6b
+=======
+guid: 17615ab32c28b76479544aa98b080f8f
+>>>>>>> origin/platforms
 TextureImporter:
   fileIDToRecycleName:
     21300000: ground_Sky

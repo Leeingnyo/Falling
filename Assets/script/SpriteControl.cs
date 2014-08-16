@@ -2,15 +2,24 @@
 using System.Collections;
 
 public class SpriteControl : MonoBehaviour {
-
+    
 	Animator anim;
     public int speed = 2;
     public float jumpForce = 400.0f;
 
     bool is_jumping = false;
     bool is_grounded = false;
+    bool is_falling = false;
 
-    float max_h=0;
+    private float time_crush;
+    bool is_crush;
+    private float time_wing;
+    bool is_wing;
+    private float time_jumpup;
+    bool is_jumpup;
+    private int num_sheild;
+
+    private float max_h;
 
     Transform groundCheck;
     private Transform cam;	
@@ -20,7 +29,8 @@ public class SpriteControl : MonoBehaviour {
 		anim = GetComponentInChildren<Animator>();
         groundCheck = transform.Find("GroundCheck");
         cam = Camera.main.transform;
-        Camera.main.orthographicSize = 5;
+        Camera.main.orthographicSize = 4;
+        max_h = 0;
 	}
 	
 	// Update is called once per frame
@@ -61,6 +71,7 @@ public class SpriteControl : MonoBehaviour {
             anim.SetBool("moving", false);
         }
 
+        //air_
         if (is_grounded == true)
             anim.SetBool("inAir", false);
         if (inputJump != 0)
@@ -69,10 +80,20 @@ public class SpriteControl : MonoBehaviour {
                 anim.SetBool("inAir", true);
                 is_jumping = true;
             }
+        //check fall
+        if (max_h-0.4 > transform.position.y) {
+            is_falling = true;
+            anim.SetTrigger("fall");
+            this.rigidbody2D.fixedAngle = false;
+            speed = 5;
+        }
+        //check item
+        CheckItem();
 
         //move
         transform.position += (moveDir * Time.deltaTime * speed);
 
+        //cam move
         cam.transform.position = new Vector3(0, transform.position.y, -1);
 	}
 
@@ -83,11 +104,83 @@ public class SpriteControl : MonoBehaviour {
             rigidbody2D.AddForce(new Vector2(0f, jumpForce));
         }
         is_jumping = false;
+
+        if (is_wing) {
+            rigidbody2D.gravityScale = 0;
+            rigidbody2D.velocity = new Vector2(0, 15f);
+        }
+        if (time_wing < 0.0f) {
+            rigidbody2D.gravityScale = 1;
+        }
     }
 
-    void OnCollisionStay(Collision coll){
-        if (is_grounded) {
-            max_h = coll.transform.position.y;
+    void OnCollisionStay2D(Collision2D coll){
+        if (coll.gameObject.name == "wood") {
+            if (is_grounded)
+            {
+                max_h = coll.transform.position.y;
+            }
+        }
+    }
+
+    public void CheckItem() {
+        if (is_crush) { 
+            time_crush -= Time.deltaTime;
+            if (time_crush < 0.0f) {
+                is_crush = false;
+            }
+            //Crush()
+        }
+        if (is_jumpup) {
+            time_jumpup -= Time.deltaTime;
+            if (time_jumpup < 0.0f)
+            {
+                is_jumpup = false;
+            }
+            jumpForce = 500.0f;
+        }
+        else {
+            jumpForce = 400.0f;
+        }
+        if (is_wing) { 
+            time_wing -= Time.deltaTime;
+            if (time_wing < 0.0f) {
+                is_wing = false;
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D item) {
+        if (item.tag == "Crush") {
+            is_crush = true;
+            time_crush = 5.0f;
+            Destroy(item.gameObject);
+        } else
+        if (item.tag == "Jump_up") {
+            is_jumpup = true;
+            time_jumpup = 5.0f;
+            Destroy(item.gameObject);
+        } else
+        if (item.tag == "Wing") {
+            is_wing = true;
+            time_wing = 5.0f;
+
+            Destroy(item.gameObject);
+        } else
+        if (item.tag == "Sheild") {
+            num_sheild++;
+            Destroy(item.gameObject);
+        }
+
+        if (is_falling == true && item.tag == "tiles") {
+            if (num_sheild > 0) {
+                num_sheild--;
+            }
+            else {
+                rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
+                //부숴지는 이펙트 설정 (?)
+                Destroy(item.gameObject, 1); //진짜로 부숨
+            }
         }
     }
 }

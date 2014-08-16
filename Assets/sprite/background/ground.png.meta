@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: db34e210fbe694b89b60a79877b14d47
+=======
+guid: 464d79324c1432745888159448f86cbe
+>>>>>>> origin/platforms
 TextureImporter:
   fileIDToRecycleName:
     21300000: ground
@@ -35,10 +39,17 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
+<<<<<<< HEAD
   alignment: 7
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 200
+=======
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+>>>>>>> origin/platforms
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []

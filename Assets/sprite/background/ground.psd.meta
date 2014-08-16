@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: dadd5d5c184474a67a983b7538f32fc0
+=======
+guid: 4a7e72e9e0d5829428fd08f7e6981722
+>>>>>>> origin/platforms
 TextureImporter:
   fileIDToRecycleName:
     21300000: ground
