@@ -4,12 +4,13 @@ using System.Collections;
 public class SpriteControl : MonoBehaviour {
 
 	Animator anim;
-    int speed;
+    int speed = 2;
+    float jumpForce = 100.0f;
+    bool jump = false;
 
 	// Use this for initialization
 	void Awake () {
 		anim = GetComponentInChildren<Animator>();
-        speed = 1;
 	}
 	
 	// Update is called once per frame
@@ -35,6 +36,23 @@ public class SpriteControl : MonoBehaviour {
 			anim.SetBool("moving",false);
 		}
 
+        if (Input.GetKey(KeyCode.Space))
+            if (jump == false) { //grounded 도 추가
+                anim.SetBool("inAir", true);
+                jump = true;
+            }
+
         transform.position += (moveDir * Time.deltaTime * speed);
 	}
+
+    void FixedUpdate() {
+        if (jump) {
+            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+        }
+        jump = false;
+    }
+
+    void OnCollisionStay2D(Collision2D coll) {
+        anim.SetBool("inAir", false);
+    }
 }
