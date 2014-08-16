@@ -19,6 +19,7 @@ public class SpriteControl : MonoBehaviour
     bool is_gameover;
 	private GameObject shieldEffect;
 	private GameObject shoeEffect;
+    private Transform groundCheck;
 
     bool is_jumping = false;
     bool is_grounded = false;
@@ -37,13 +38,15 @@ public class SpriteControl : MonoBehaviour
     private float wing_speed;
 
     private bool Gameover;
+<<<<<<< HEAD
+=======
 
     Transform groundCheck;
+>>>>>>> origin/master
     private Transform cam;
     Collider2D[] PlayerColliders = null;
     Collider2D[] TilesColliders = null;
     Collider2D current_tile = null;
-    // Use this for initialization
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -58,16 +61,12 @@ public class SpriteControl : MonoBehaviour
 		shieldEffect = transform.Find("shieldEffect").gameObject;
 		shoeEffect = transform.Find("shoeEffect").gameObject;
 	}
-    // Update is called once per frame
     void Update()
     {
-        //init
         Vector3 moveDir = Vector3.zero;
 
-        //check the grounded
         is_grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("ground"));
 
-        //input the keys
         int inputHor;
         if (Input.GetKey(KeyCode.LeftArrow))
             inputHor = -1;
@@ -82,7 +81,6 @@ public class SpriteControl : MonoBehaviour
         else
             inputJump = 0;
 
-        //reflect the keys
         if (inputHor != 0)
         {
             anim.SetInteger("dirc", inputHor / Mathf.Abs(inputHor));
@@ -97,7 +95,6 @@ public class SpriteControl : MonoBehaviour
             anim.SetBool("moving", false);
         }
 
-        //air_
         if (is_grounded == true)
             anim.SetBool("inAir", false);
         if (inputJump != 0)
@@ -106,7 +103,6 @@ public class SpriteControl : MonoBehaviour
                 anim.SetBool("inAir", true);
                 is_jumping = true;
             }
-        //check fall
         if ((max_h - 0.4 > transform.position.y) && is_falling == false)
         {
             TilesColliders = GameObject.Find("2-Midground").GetComponentsInChildren<Collider2D>();
@@ -123,18 +119,34 @@ public class SpriteControl : MonoBehaviour
 
             is_falling = true;
             anim.SetTrigger("fall");
-            //this.rigidbody2D.fixedAngle = false;
             speed = 5;
         }
         //check item
         CheckItem();
 
         //move
+<<<<<<< HEAD
 		rigidbody2D.AddForce(speed * moveDir);
 		Vector2 vec2 = rigidbody2D.velocity;
 		vec2.x *= 1-(slip * Time.deltaTime);
 		rigidbody2D.velocity = vec2;
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
+=======
+        if (!is_gameover)
+        {
+            if (moveDir != Vector3.zero)
+            {
+                currentSpeed = speed * moveDir;
+                transform.position += (Time.deltaTime * currentSpeed);
+            }
+            else
+            {
+                currentSpeed *= 1 - (slip * Time.deltaTime);
+                transform.position += (Time.deltaTime * currentSpeed);
+            }
+            transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
+        }
+>>>>>>> 675080daa9e5a41fbc51b970a0f345419cbe77a9
         //cam move
         if (Gameover == false)
             cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
@@ -165,7 +177,6 @@ public class SpriteControl : MonoBehaviour
 		}
         if (is_wing)
         {
-            //rigidbody2D.gravityScale = 0;
             wing_speed -= Time.deltaTime * 10;
             rigidbody2D.velocity = new Vector2(0, wing_speed);
             if (0.0f > wing_speed)
@@ -243,16 +254,8 @@ public class SpriteControl : MonoBehaviour
         }
         if (is_wing)
         {
-            //time_wing -= Time.deltaTime;
             anim.SetBool("flying", true);
             speed = 5;
-            /*
-            if (time_wing < 0.0f)
-            {
-                is_wing = false;
-                speed = 2;
-            }
-             */
         }
     }
 
