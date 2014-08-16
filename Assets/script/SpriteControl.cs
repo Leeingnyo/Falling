@@ -107,7 +107,10 @@ public class SpriteControl : MonoBehaviour
             rigidbody2D.AddForce(new Vector2(0f, jumpForce));
         }
         is_jumping = false;
-
+		if(is_falling){
+			rigidbody2D.gravityScale = 0;
+			rigidbody2D.velocity = new Vector2(0, -3);
+		}
         if (is_wing)
         {
             rigidbody2D.gravityScale = 0;
@@ -115,8 +118,10 @@ public class SpriteControl : MonoBehaviour
         }
         if (time_wing < 0.0f)
         {
-            rigidbody2D.gravityScale = 1;
-        }
+			rigidbody2D.gravityScale = 1;
+		}
+		
+
     }
 
     void OnCollisionStay2D(Collision2D coll)
