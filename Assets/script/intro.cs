@@ -3,6 +3,7 @@ using System.Collections;
 
 public class intro : MonoBehaviour {
 	private bool ready = false;
+	public int target = 1;
 	// Use this for initialization
 	void Start () {
 		iTween.CameraFadeAdd();
@@ -21,6 +22,6 @@ public class intro : MonoBehaviour {
 	}
 
 	void go(){
-		Application.LoadLevel(1);
+		Application.LoadLevel(target);
 	}
 }
