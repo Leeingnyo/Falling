@@ -120,6 +120,13 @@ public class SpriteControl : MonoBehaviour
         CheckItem();
 
         //move
+<<<<<<< HEAD
+		rigidbody2D.AddForce(speed * moveDir);
+		Vector2 vec2 = rigidbody2D.velocity;
+		vec2.x *= 1-(slip * Time.deltaTime);
+		rigidbody2D.velocity = vec2;
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
+=======
         if (!is_gameover)
         {
             if (moveDir != Vector3.zero)
@@ -134,6 +141,7 @@ public class SpriteControl : MonoBehaviour
             }
             transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
         }
+>>>>>>> 675080daa9e5a41fbc51b970a0f345419cbe77a9
         //cam move
         if (Gameover == false)
             cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
