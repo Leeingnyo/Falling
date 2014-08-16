@@ -24,16 +24,20 @@ public class SpriteControl : MonoBehaviour
 
     Transform groundCheck;
     private Transform cam;
-
+    Collider2D[] Colliders = null;
+    Collider2D current_tile = null;
     // Use this for initialization
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
         groundCheck = transform.Find("GroundCheck");
         cam = Camera.main.transform;
+        Camera.main.orthographicSize = 4;
         max_h = 0;
     }
-
+    void Start() {
+        Colliders = gameObject.GetComponents<Collider2D>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -105,6 +109,14 @@ public class SpriteControl : MonoBehaviour
         if (is_jumping)
         {
             rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+            if (is_crush)
+            {
+                if (current_tile != null)
+                {
+                    Destroy(current_tile.gameObject);
+                    current_tile = null;
+                }
+            }
         }
         is_jumping = false;
 
@@ -116,7 +128,10 @@ public class SpriteControl : MonoBehaviour
         if (time_wing < 0.0f)
         {
             rigidbody2D.gravityScale = 1;
-        }
+            foreach (Collider2D colls in Colliders) {
+                if (is_grounded == true)
+                    colls.enabled = true;
+            }        }
     }
 
     void OnCollisionStay2D(Collision2D coll)
@@ -126,7 +141,10 @@ public class SpriteControl : MonoBehaviour
             if (is_grounded)
             {
                 max_h = coll.transform.position.y;
-            }
+                if (is_crush)
+                {
+                    current_tile = coll.collider;
+                }            }
         }
     }
 
@@ -157,54 +175,54 @@ public class SpriteControl : MonoBehaviour
         if (is_wing)
         {
             time_wing -= Time.deltaTime;
+            anim.SetBool("flying", true);
+            speed = 5;
             if (time_wing < 0.0f)
             {
                 is_wing = false;
-            }
+                anim.SetBool("flying", false);
+                speed = 2;            }
         }
     }
 
-    void OnTriggerEnter2D(Collider2D item)
-    {
-        if (item.tag == "Crush")
-        {
-            is_crush = true;
-            time_crush = 5.0f;
-            Destroy(item.gameObject);
-        }
-        else
-            if (item.tag == "Jump_up")
-            {
+    void OnTriggerEnter2D(Collider2D coll) {
+        switch (coll.tag) {
+            case "Crush":
+                is_crush = true;
+                time_crush = 5.0f;
+                Destroy(coll.gameObject);
+                break;
+            case "Jump_up":
                 is_jumpup = true;
                 time_jumpup = 5.0f;
-                Destroy(item.gameObject);
-            }
-            else
-                if (item.tag == "Wing")
-                {
-                    is_wing = true;
-                    time_wing = 5.0f;
-
-                    Destroy(item.gameObject);
+                Destroy(coll.gameObject);
+                break;
+            case "Wing":
+                is_wing = true;
+                time_wing = 1.5f;
+                
+                foreach (Collider2D colls in Colliders) {
+                    colls.enabled = false;
                 }
-                else
-                    if (item.tag == "Sheild")
-                    {
-                        num_sheild++;
-                        Destroy(item.gameObject);
-                    }
 
-        if (is_falling == true && item.tag == "tiles")
-        {
-            if (num_sheild > 0)
-            {
-                num_sheild--;
-            }
-            else
-            {
-                rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
-                //부숴지는 이펙트 설정 (?)
-                Destroy(item.gameObject, 1); //진짜로 부숨
+                Destroy(coll.gameObject);
+                break;
+            case "Sheild":
+                num_sheild++;
+                Destroy(coll.gameObject);
+                break;
+        }
+
+        if (coll.tag == "tiles") {
+            if (is_falling == true) {
+                if (num_sheild > 0) {
+                    num_sheild--;
+                }
+                else {
+                    rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
+                    //부숴지는 이펙트 설정 (?)
+                    Destroy(coll.gameObject, 1); //진짜로 부숨
+                }
             }
         }
     }
