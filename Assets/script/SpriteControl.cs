@@ -16,7 +16,7 @@ public class SpriteControl : MonoBehaviour
 
     Transform groundCheck;
     private Transform cam;
-
+    private float Height;
 
     // Use this for initialization
     void Awake()
@@ -24,7 +24,8 @@ public class SpriteControl : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         groundCheck = transform.Find("GroundCheck");
         cam = Camera.main.transform;
-        Camera.main.orthographicSize = 5;
+        Camera.main.orthographicSize = 8;
+        Height = 0;
     }
 
     // Update is called once per frame
