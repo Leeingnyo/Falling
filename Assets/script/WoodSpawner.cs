@@ -10,8 +10,17 @@ public class WoodSpawner : MonoBehaviour
     public GameObject woodprefab;
     public GameObject reinprefab;
     public GameObject bgprefab;
+    public GameObject crushPrefab;
+    public GameObject jumpupPrefab;
+    public GameObject wingPrefab;
+    public GameObject sheildPrefab;
     public int max_wood_cnt;
     public int dy;
+    
+    public int propertyCrush = 100;
+    public int propertySheild = 200;
+    public int propertyJumpup = 100;
+    public int propertyWing = 50;
 
     private float x_min_bound;
     private float x_max_bound;
@@ -22,8 +31,6 @@ public class WoodSpawner : MonoBehaviour
 
     void Awake()
     {
-        //woodList = new List<GameObject>();
-        //woodPosList = new List<Vector3>();
         x_min_bound = bgprefab.renderer.bounds.min.x + (woodprefab.renderer.bounds.max.x - woodprefab.renderer.bounds.min.x);
         x_max_bound = bgprefab.renderer.bounds.max.x - (woodprefab.renderer.bounds.max.x - woodprefab.renderer.bounds.min.x);
     }
@@ -45,9 +52,35 @@ public class WoodSpawner : MonoBehaviour
             wood.layer = LayerMask.NameToLayer("ground");
             wood.tag = "tiles";
             sum_y += dy;
-            //woodPosList.Add(newPos);
             wood.transform.parent = newParent.transform;
             last_wood_pos = newPos;
+
+            Vector3 AddPos = new Vector3(Random.Range(-1f, 1f), 0.7f, 0);
+            GameObject item;
+            int su = Random.Range(0, 1000);
+            if (0 <= su && su < propertyCrush) {
+                item = Instantiate(crushPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Crush";
+            } else
+            if (propertyCrush <= su && su < propertyCrush + propertySheild) {
+                item = Instantiate(sheildPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Sheild";
+            } else
+            if (propertyCrush + propertySheild <= su && su < propertyCrush + propertySheild + propertyJumpup) {
+                item = Instantiate(jumpupPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Jump_up";
+            } else
+            if (propertyCrush + propertySheild + propertyJumpup <= su && su < propertyCrush + propertySheild + propertyJumpup + propertyWing) {
+                item = Instantiate(wingPrefab, newPos + AddPos, Quaternion.identity) as GameObject;
+                item.tag = "Wing";
+            } else{
+                item = null;
+            }
+            if (item != null) {
+                item.layer = LayerMask.NameToLayer("items");
+                item.transform.parent = newParent.transform;
+            }
+                
         }
 
     }
