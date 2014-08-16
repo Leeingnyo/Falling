@@ -17,6 +17,8 @@ public class SpriteControl : MonoBehaviour
     private float FallSpeed;
     public float woodSlower;
     bool is_gameover;
+	private GameObject shieldEffect;
+	private GameObject shoeEffect;
 
     bool is_jumping = false;
     bool is_grounded = false;
@@ -29,10 +31,16 @@ public class SpriteControl : MonoBehaviour
     bool is_wing;
     private float time_jumpup;
     bool is_jumpup;
-    private int num_sheild;
+    public static int num_sheild;
 
     private float max_h;
+<<<<<<< HEAD
     private float wing_speed;
+=======
+
+    private bool Gameover;
+
+>>>>>>> origin/master
     Transform groundCheck;
     private Transform cam;
     Collider2D[] PlayerColliders = null;
@@ -50,7 +58,9 @@ public class SpriteControl : MonoBehaviour
     }
     void Start() {
         PlayerColliders = gameObject.GetComponents<Collider2D>();
-    }
+		shieldEffect = transform.Find("shieldEffect").gameObject;
+		shoeEffect = transform.Find("shoeEffect").gameObject;
+	}
     // Update is called once per frame
     void Update()
     {
@@ -132,7 +142,8 @@ public class SpriteControl : MonoBehaviour
 		}
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
         //cam move
-        cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
+        if (Gameover == false)
+            cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
     }
 
     void FixedUpdate()
@@ -145,6 +156,7 @@ public class SpriteControl : MonoBehaviour
                 if (current_tile != null)
                 {
                     Destroy(current_tile.gameObject);
+                    SoundEffectsHelper.Instance.MakeCrashSound();
                     current_tile = null;
                 }
             }
@@ -264,7 +276,8 @@ public class SpriteControl : MonoBehaviour
                     is_jumpup = true;
                     time_jumpup = 5.0f;
                     Destroy(coll.gameObject);
-                	SoundEffectsHelper.Instance.MakeItemGetSound();
+					shoeEffect.GetComponent<ParticleSystem>().Play();
+					SoundEffectsHelper.Instance.MakeItemGetSound();
                     break;
                 case "Wing":
                     is_wing = true;
@@ -280,19 +293,21 @@ public class SpriteControl : MonoBehaviour
                 case "Sheild":
                     num_sheild++;
                     Destroy(coll.gameObject);
-	                SoundEffectsHelper.Instance.MakeItemGetSound();
+					shieldEffect.GetComponent<ParticleSystem>().Play();
+					SoundEffectsHelper.Instance.MakeItemGetSound();
                     break;
-            }        }
+            }        
+		}
 
         if (coll.tag == "tiles") {
             if (is_falling == true) {
                 if (num_sheild > 0) {
                     num_sheild--;
+					shieldEffect.GetComponent<ParticleSystem>().Play();
                 }
                 else {
-                    rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
-                    //부숴지는 이펙트 설정 (?)
-                    Destroy(coll.gameObject, 1); //진짜로 부숨
+                    rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도를 늦춤
+                    Destroy(coll.gameObject);
                     SoundEffectsHelper.Instance.MakeCrashSound();
                     FallSpeed -= woodSlower;
                     if (FallSpeed < initFallSpeed)
@@ -300,5 +315,11 @@ public class SpriteControl : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static int GetNumSheild()
+    {
+        int num = num_sheild;
+        return num;
     }
 }
