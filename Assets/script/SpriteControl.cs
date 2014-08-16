@@ -31,9 +31,11 @@ public class SpriteControl : MonoBehaviour
     bool is_wing;
     private float time_jumpup;
     bool is_jumpup;
-    private int num_sheild;
+    public static int num_sheild;
 
     private float max_h;
+
+    private bool Gameover;
 
     Transform groundCheck;
     private Transform cam;
@@ -136,7 +138,8 @@ public class SpriteControl : MonoBehaviour
 		}
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, -2.2f, 2.2f), transform.position.y);
         //cam move
-        cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
+        if (Gameover == false)
+            cam.transform.position = new Vector3(0,Mathf.Clamp(transform.position.y,3f,Mathf.Infinity), -1);
     }
 
     void FixedUpdate()
@@ -149,6 +152,7 @@ public class SpriteControl : MonoBehaviour
                 if (current_tile != null)
                 {
                     Destroy(current_tile.gameObject);
+                    SoundEffectsHelper.Instance.MakeCrashSound();
                     current_tile = null;
                 }
             }
@@ -291,9 +295,8 @@ public class SpriteControl : MonoBehaviour
 					shieldEffect.GetComponent<ParticleSystem>().Play();
                 }
                 else {
-                    rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도 늦춤
-                    //부숴지는 이펙트 설정 (?)
-                    Destroy(coll.gameObject, 1); //진짜로 부숨
+                    rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도를 늦춤
+                    Destroy(coll.gameObject);
                     SoundEffectsHelper.Instance.MakeCrashSound();
                     FallSpeed -= woodSlower;
                     if (FallSpeed < initFallSpeed)
@@ -301,5 +304,11 @@ public class SpriteControl : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static int GetNumSheild()
+    {
+        int num = num_sheild;
+        return num;
     }
 }
