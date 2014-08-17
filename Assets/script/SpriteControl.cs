@@ -19,6 +19,8 @@ public class SpriteControl : MonoBehaviour
     public float initFallSpeed;
     private float FallSpeed;
     public float woodSlower;
+	public float reinSlower;
+
     bool is_gameover;
 	private GameObject shieldEffect;
 	private GameObject shoeEffect;
@@ -309,7 +311,10 @@ public class SpriteControl : MonoBehaviour
                     rigidbody2D.velocity -= new Vector2(0, 0.5f); //속도를 늦춤
                     Destroy(coll.gameObject);
                     SoundEffectsHelper.Instance.MakeCrashSound();
-                    FallSpeed -= woodSlower;
+					if(coll.gameObject.transform.localScale.x>45)
+	                    FallSpeed -= woodSlower;
+					else
+						FallSpeed -= reinSlower;
                     if (FallSpeed < initFallSpeed)
                         FallSpeed = initFallSpeed;
                 }
